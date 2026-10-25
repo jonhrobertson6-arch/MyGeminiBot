@@ -1,24 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp">
+package com.example.mygeminibot
 
-    <TextView
-        android:id="@+id/statusTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ბოტი მზადაა დასაწყებად"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:layout_marginBottom="24dp"/>
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ბოტის გაშვება"/>
+class MainActivity : AppCompatActivity() {
 
-</LinearLayout>
+    private lateinit var statusTextView: TextView
+    private lateinit var startButton: Button
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        statusTextView = findViewById(R.id.statusTextView)
+        startButton = findViewById(R.id.startButton)
+
+        startButton.setOnClickListener {
+            statusTextView.text = "ბოტი მუშაობს და აანალიზებს..."
+        }
+    }
+}
