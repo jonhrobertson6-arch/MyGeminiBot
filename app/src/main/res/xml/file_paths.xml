@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+        დროებითი სკრინშოტების საქაღალდე აპლიკაციის შიდა ქეშში (context.cacheDir/screenshots).
+        ეს სურათები გამოიყენება მხოლოდ Gemini-სთვის გადასაცემად და შემდეგ ავტომატურად იშლება.
+    -->
+    <cache-path
+        name="bot_screenshots"
+        path="screenshots/" />
+</paths>
