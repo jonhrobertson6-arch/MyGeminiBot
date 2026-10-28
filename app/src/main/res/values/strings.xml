@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- თვითონ ჩვენი ბოტის აპლიკაციის სახელი, რომელიც ტელეფონის ეკრანზე დაეწერება -->
+    <string name="app_name">botibuta</string>
+
+    <!-- სახელი, რომელიც გამოჩნდება ტელეფონის Settings -> Accessibility მენიუში -->
+    <string name="accessibility_service_label">botibuta</string>
+
+    <!-- აღწერა, რომელსაც მომხმარებელი ხედავს Accessibility სერვისის ერთჯერადად ჩართვისას -->
+    <string name="accessibility_service_description">botibuta — ავტონომიური ავტომატიზაციის სერვისი: კითხულობს ეკრანის ელემენტებს, იღებს დროებით სკრინშოტს ანალიზისთვის, უკავშირდება ტელეფონში დაინსტალირებულ Gemini აპლიკაციას და ასრულებს შესაბამის მოქმედებებს სამიზნე აპლიკაციაში.</string>
+</resources>
