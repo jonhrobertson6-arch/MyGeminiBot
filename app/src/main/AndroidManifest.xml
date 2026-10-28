@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        SYSTEM_ALERT_WINDOW: საჭიროა ორი მიზეზით:
+        1. ეკრანის კუთხეში სტატუსისა და გადაუდებელი STOP ღილაკის გამოსაჩენად.
+        2. Android 10+-ზე ფონური სერვისიდან სამიზნე აპლიკაციასა და Gemini-ს შორის ავტომატური გადართვისთვის.
+    -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!--
+        Android 11+ (API 30+) Package Visibility:
+        აძლევს ბოტს უფლებას, დაინახოს და გახსნას ტელეფონში დაინსტალირებული აპლიკაციები
+        (სამიზნე აპლიკაცია და ოფიციალური Gemini აპლიკაცია) ხელით package name-ის აქ ჩაწერის გარეშეც.
+    -->
+    <queries>
+        <!-- ყველა გაშვებადი აპლიკაციის (Launcher Apps) დანახვის უფლება -->
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+
+        <!-- ყველა აპლიკაციის დანახვა, რომელიც იღებს სურათის გაზიარებას (Gemini Share Target) -->
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="image/*" />
+        </intent>
+
+        <!-- ყველა აპლიკაციის დანახვა, რომელიც იღებს ტექსტის გაზიარებას -->
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="text/plain" />
+        </intent>
+
+        <!-- Google Gemini-სა და Google App-ის ცნობილი პაკეტები -->
+        <package android:name="com.google.android.apps.bard" />
+        <package android:name="com.google.android.googlequicksearchbox" />
+    </queries>
+
+    <application
+        android:allowBackup="false"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+
+        <!-- 1. მთავარი მართვის ეკრანი (MainActivity) -->
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 2. ბოტის Accessibility სერვისი (ეკრანის წაკითხვა, სკრინშოტი და ავტომატური დაჭერა) -->
+        <service
+            android:name=".service.BotAccessibilityService"
+            android:exported="false"
+            android:label="@string/accessibility_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <!-- 3. FileProvider დროებითი სკრინშოტის Gemini-ს აპლიკაციაში უსაფრთხოდ გადასაცემად -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+</manifest>
